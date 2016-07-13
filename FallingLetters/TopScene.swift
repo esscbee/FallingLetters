@@ -22,9 +22,27 @@ class TopScene : SKScene {
         label.fontColor = textColors[random() % textColors.count ]
         self.addChild(label)
         
-        let fall = SKAction.moveToY(0, duration: 1)
+        let rotate = SKAction.rotateByAngle(CGFloat(M_PI), duration: 1)
+        let scale = SKAction.scaleBy(2, duration: 3)
+        let fall = SKAction.moveToY(0, duration: 3)
         let remove = SKAction.removeFromParent()
-        let seq = SKAction.sequence([fall, remove])
+        let code = SKAction.runBlock({
+            print("Done!")
+        })
+
+        let group = SKAction.group([rotate, fall, scale ])
+        let seq = SKAction.sequence([group, remove, code])
         label.runAction(seq)
+    }
+    
+    var nextTime = 0.0
+    
+    override func update(currentTime: NSTimeInterval) {
+        let now = NSDate().timeIntervalSince1970
+        
+        if now > nextTime {
+            nextTime = now + 3 + Double(random() % 25) / 10.0
+            // spawn
+        }
     }
 }
