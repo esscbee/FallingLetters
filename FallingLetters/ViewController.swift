@@ -50,8 +50,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textBox.becomeFirstResponder()
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        topScene.someText(string)
+//    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+//        topScene.someText(string)
+//        return true
+//    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if let t = textField.text {
+            topScene.someText(t)
+            textField.text = nil
+        }
         return true
     }
 
